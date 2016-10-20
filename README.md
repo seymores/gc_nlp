@@ -1,10 +1,10 @@
 # GcNLP
 
-**Elixir wrapper for Google Cloud Natural Language API**
+Elixir wrapper for Google Cloud Natural Language API. See [Cloud Natural Language API](https://cloud.google.com/natural-language/)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+The package can be installed as:
 
   1. Add `gc_nlp` to your list of dependencies in `mix.exs`:
 
@@ -21,4 +21,5 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [applications: [:gc_nlp]]
     end
     ```
+## Using GcNLP
 
