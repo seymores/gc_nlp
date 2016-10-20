@@ -17,7 +17,7 @@ defmodule GcNLP do
       %{"documentSentiment" => %{"magnitude" => 0.1, "polarity" => 1}, "language" => "en"}
 
   """
-  def analyze_sentiment(text, type \\ "plain_text") do
+  def analyze_sentiment(text) do
     make_request("documents:analyzeSentiment", text)
   end
 

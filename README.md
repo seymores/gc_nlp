@@ -21,5 +21,27 @@ The package can be installed as:
       [applications: [:gc_nlp]]
     end
     ```
+
 ## Using GcNLP
 
+1. Sentiment Analysis
+	 
+	```elixir
+	iex> GcNLP.analyze_entities "There is a lot of new features coming in Elixir 1.4"
+%{"entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en"}
+
+	```
+	
+2. Entity Analysis
+
+	```elixir
+	iex> GcNLP.analyze_entities "There is a lot of new features coming in Elixir 1.4"
+    %{"entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en"} 
+	```
+
+3. Syntactic Analysis
+
+	```elixir
+	iex> GcNLP.annotate_text "There is a lot of new features coming in Elixir 1.4"
+    %{"documentSentiment" => %{"magnitude" => 0.1, "polarity" => 1}, "entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en", "sentences" => [%{"text" => %{"beginOffset" => 0, "content" => "There is a lot of new features coming in Elixir 1.4"}}], "tokens" => [%{"dependencyEdge" => %{"headTokenIndex" => 1, "label" => "EXPL"}, "lemma" => "There", "partOfSpeech" => %{"tag" => "DET"}, "text" => %{"beginOffset" => 0, "content" => "There"}}, %{"dependencyEdge" => %{"headTokenIndex" => 1, "label" => "ROOT"}, "lemma" => "be", "partOfSpeech" => %{"tag" => "VERB"}, "text" => %{"beginOffset" => 6, "content" => "is"}}, ...} 
+	```
