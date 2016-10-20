@@ -2,6 +2,8 @@
 
 Elixir wrapper for Google Cloud Natural Language API. See [Cloud Natural Language API](https://cloud.google.com/natural-language/)
 
+Latest version 0.2.0 [doc.](https://hexdocs.pm/gc_nlp/0.2.0)
+
 ## Installation
 
 The package can be installed as:
@@ -10,7 +12,7 @@ The package can be installed as:
 
     ```elixir
     def deps do
-      [{:gc_nlp, "~> 0.1.0"}]
+      [{:gc_nlp, "~> 0.2.0"}]
     end
     ```
 
@@ -21,6 +23,8 @@ The package can be installed as:
       [applications: [:gc_nlp]]
     end
     ```
+    
+  3. Put your Google Cloud credential json file in 'config/' or modify the appropriate Goth config. Refer to [this guide to get your credential file.](https://cloud.google.com/natural-language/docs/common/auth). Default to expect "gcloud-secret.json" inside config directory.
 
 ## Using GcNLP
 
