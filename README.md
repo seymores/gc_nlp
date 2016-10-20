@@ -24,15 +24,15 @@ The package can be installed as:
     end
     ```
     
-  3. Put your Google Cloud credential json file in 'config/' or modify the appropriate Goth config. Refer to [this guide to get your credential file.](https://cloud.google.com/natural-language/docs/common/auth). Default to expect "gcloud-secret.json" inside config directory.
+  3. Put your Google Cloud credential json file in 'config/' or modify the appropriate Goth config. Refer to [this guide to get your credential file.](https://cloud.google.com/natural-language/docs/common/auth) Default to expect "gcloud-secret.json" inside config directory.
 
 ## Using GcNLP
 
 1. Sentiment Analysis
 	 
 	```elixir
-	iex> GcNLP.analyze_entities "There is a lot of new features coming in Elixir 1.4"
-%{"entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en"}
+	iex> GcNLP.analyze_sentiment "There is a lot of new features coming in Elixir 1.4"
+	%{"documentSentiment" => %{"magnitude" => 0.1, "polarity" => 1}, "language" => "en"}
 
 	```
 	

@@ -10,7 +10,7 @@ defmodule GcNLP do
 
   @doc """
   Finds named entities (currently finds proper names) in the text, entity types, salience, mentions for each entity, and other properties. See [doc](https://cloud.google.com/natural-language/reference/rest/v1beta1/documents/analyzeEntities)
-  
+
   ## Example
 
       iex> GcNLP.analyze_sentiment "There is a lot of new features coming in Elixir 1.4"
@@ -27,7 +27,7 @@ defmodule GcNLP do
   ## Example
 
       iex> GcNLP.analyze_entities "There is a lot of new features coming in Elixir 1.4"
-      %{"entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en"} 
+      %{"entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en"}
 
   """
   def analyze_entities(text) do
@@ -40,8 +40,48 @@ defmodule GcNLP do
   ## Example
 
       iex> GcNLP.annotate_text "There is a lot of new features coming in Elixir 1.4"
-      %{"documentSentiment" => %{"magnitude" => 0.1, "polarity" => 1}, "entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41, "content" => "Elixir 1.4"}}], "metadata" => %{}, "name" => "Elixir 1.4", "salience" => 0.16144496, "type" => "OTHER"}], "language" => "en", "sentences" => [%{"text" => %{"beginOffset" => 0, "content" => "There is a lot of new features coming in Elixir 1.4"}}], "tokens" => [%{"dependencyEdge" => %{"headTokenIndex" => 1, "label" => "EXPL"}, "lemma" => "There", "partOfSpeech" => %{"tag" => "DET"}, "text" => %{"beginOffset" => 0, "content" => "There"}}, %{"dependencyEdge" => %{"headTokenIndex" => 1, "label" => "ROOT"}, "lemma" => "be", "partOfSpeech" => %{"tag" => "VERB"}, "text" => %{"beginOffset" => 6, "content" => "is"}}, ...} 
-
+      %{"documentSentiment" => %{"magnitude" => 0.1, "polarity" => 1},
+                   "entities" => [%{"mentions" => [%{"text" => %{"beginOffset" => 41,
+                           "content" => "Elixir 1.4"}}], "metadata" => %{},
+                      "name" => "Elixir 1.4", "salience" => 0.16144496,
+                      "type" => "OTHER"}], "language" => "en",
+                   "sentences" => [%{"text" => %{"beginOffset" => 0,
+                        "content" => "There is a lot of new features coming in Elixir 1.4"}}],
+                   "tokens" => [%{"dependencyEdge" => %{"headTokenIndex" => 1,
+                        "label" => "EXPL"}, "lemma" => "There",
+                      "partOfSpeech" => %{"tag" => "DET"},
+                      "text" => %{"beginOffset" => 0, "content" => "There"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 1, "label" => "ROOT"},
+                      "lemma" => "be", "partOfSpeech" => %{"tag" => "VERB"},
+                      "text" => %{"beginOffset" => 6, "content" => "is"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 3, "label" => "DET"},
+                      "lemma" => "a", "partOfSpeech" => %{"tag" => "DET"},
+                      "text" => %{"beginOffset" => 9, "content" => "a"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 1,
+                        "label" => "NSUBJ"}, "lemma" => "lot",
+                      "partOfSpeech" => %{"tag" => "NOUN"},
+                      "text" => %{"beginOffset" => 11, "content" => "lot"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 3, "label" => "PREP"},
+                      "lemma" => "of", "partOfSpeech" => %{"tag" => "ADP"},
+                      "text" => %{"beginOffset" => 15, "content" => "of"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 6, "label" => "AMOD"},
+                      "lemma" => "new", "partOfSpeech" => %{"tag" => "ADJ"},
+                      "text" => %{"beginOffset" => 18, "content" => "new"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 4, "label" => "POBJ"},
+                      "lemma" => "feature", "partOfSpeech" => %{"tag" => "NOUN"},
+                      "text" => %{"beginOffset" => 22, "content" => "features"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 6, "label" => "VMOD"},
+                      "lemma" => "come", "partOfSpeech" => %{"tag" => "VERB"},
+                      "text" => %{"beginOffset" => 31, "content" => "coming"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 7, "label" => "PREP"},
+                      "lemma" => "in", "partOfSpeech" => %{"tag" => "ADP"},
+                      "text" => %{"beginOffset" => 38, "content" => "in"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 8, "label" => "POBJ"},
+                      "lemma" => "Elixir", "partOfSpeech" => %{"tag" => "NOUN"},
+                      "text" => %{"beginOffset" => 41, "content" => "Elixir"}},
+                    %{"dependencyEdge" => %{"headTokenIndex" => 9, "label" => "NUM"},
+                      "lemma" => "1.4", "partOfSpeech" => %{"tag" => "NUM"},
+                      "text" => %{"beginOffset" => 48, "content" => "1.4"}}]}
   """
   def annotate_text(text) do
     url = @base_url <> "documents:annotateText"
