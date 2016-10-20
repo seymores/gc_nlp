@@ -9,27 +9,27 @@ defmodule GcNLP.Mixfile do
      start_permanent: Mix.env == :prod,
      description: "Elixir wrapper for Google Cloud Natural Language API",
      package: package,
+     docs: [extras: ["README.md"]],
      deps: deps()]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
+  def package do
+    [ name: :gc_nlp,
+      files: ["lib", "mix.exs"],
+      maintainers: ["Teo Choong Ping"],
+      licenses: ["MIT"],
+      links: %{"Github" => "https://github.com/seymores/gc_nlp"},
+    ]
+  end
+
   def application do
     [applications: [:logger, :httpoison, :goth]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
     [{:httpoison, "~> 0.9.0"},
-     {:goth, "~> 0.2.1"}]
+     {:goth, "~> 0.2.1"},
+     {:ex_doc, "~> 0.14", only: :dev},
+     {:ex_doc, ">= 1.0.3", only: :dev}]
   end
 end

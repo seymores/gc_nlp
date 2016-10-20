@@ -1,6 +1,6 @@
-# GcNlp
+# GcNLP
 
-**TODO: Add description**
+**Elixir wrapper for Google Cloud Natural Language API**
 
 ## Installation
 

@@ -1,5 +1,6 @@
 defmodule GcNLP do
   @moduledoc """
+  Provides wrapper functions for Google Cloud Natural Language API.
   See https://cloud.google.com/natural-language/reference/rest/v1beta1/documents
   """
   require Logger
@@ -51,7 +52,7 @@ defmodule GcNLP do
     HTTPoison.post(url, body, headers, [connect_timeout: 1000000, recv_timeout: 1000000, timeout: 1000000])
   end
 
-  def get_token do
+  defp get_token do
     scope = "https://www.googleapis.com/auth/cloud-platform"
     case Token.for_scope(scope) do
       {:ok, token} -> token
