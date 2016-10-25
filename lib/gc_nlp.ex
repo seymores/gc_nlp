@@ -6,7 +6,10 @@ defmodule GcNLP do
   require Logger
   alias Goth.Token
 
-  @base_url "https://language.googleapis.com/v1beta1/"
+  @base_url     "https://language.googleapis.com/v1beta1/"
+  @cache_ttl    Application.get_env(:gc_nlp, :cache_ttl)
+  @token_ttl    Application.get_env(:gc_nlp, :token_ttl)
+  @request_opts [connect_timeout: 1000000, recv_timeout: 1000000, timeout: 1000000]
 
   @doc """
   Finds named entities (currently finds proper names) in the text, entity types, salience, mentions for each entity, and other properties. See [doc](https://cloud.google.com/natural-language/reference/rest/v1beta1/documents/analyzeEntities)
@@ -84,52 +87,86 @@ defmodule GcNLP do
                       "text" => %{"beginOffset" => 48, "content" => "1.4"}}]}
   """
   def annotate_text(text) do
-    url = @base_url <> "documents:annotateText"
-    token = get_token
-    headers = %{"Authorization" => "Bearer #{token.token}", "Content-type" => "application/json"}
-    body = Poison.encode!(%{
-    "document": %{
-      "type": "plain_text",
-      "content": text
-    },
-    "features": %{
-      "extractSyntax": true,
-      "extractEntities": true,
-      "extractDocumentSentiment": true,
-    },
-    "encodingType": "UTF8"
-    })
-    Logger.debug url
-    case HTTPoison.post(url, body, headers, [connect_timeout: 1000000, recv_timeout: 1000000, timeout: 1000000]) do
-      {:ok, response} -> response.body |> Poison.decode!
-      _ -> nil
-    end
+    make_request("documents:annotateText", text, [
+      features: %{
+        "extractSyntax": true,
+        "extractEntities": true,
+        "extractDocumentSentiment": true,
+      }
+    ])
   end
 
-  defp make_request(type, content, content_type \\ "plain_text") do
+  defp make_request(type, content, options \\ []) do
+    content_type = Keyword.get(options, :content_type, "plain_text")
+    feature_set  = Keyword.get(options, :features)
+
     url = @base_url <> type
-    token = get_token
-    headers = %{"Authorization" => "Bearer #{token.token}", "Content-type" => "application/json"}
-    body = Poison.encode!(%{
-      "document": %{
-        "type": content_type,
-        "content": content
-      },
-      "encodingType": "UTF8"
-    })
-    Logger.debug url
-    case HTTPoison.post(url, body, headers, [connect_timeout: 1000000, recv_timeout: 1000000, timeout: 1000000]) do
-      {:ok, response} -> response.body |> Poison.decode!
-      _ -> nil
-    end
+
+    hash_key = get_hash_key(url, content)
+
+    try_cache(hash_key, @cache_ttl, fn(_key) ->
+      token = get_token
+
+      headers = %{
+        "Authorization" => "Bearer #{token.token}",
+        "Content-type" => "application/json"
+      }
+
+      payload = %{
+        "document": %{
+          "type": content_type,
+          "content": content
+        },
+        "encodingType": "UTF8"
+      }
+
+      body = if feature_set != nil do
+        payload
+        |> Map.put(:features, feature_set)
+        |> Poison.encode!
+      else
+        Poison.encode!(payload)
+      end
+
+      Logger.debug(url)
+
+      case HTTPoison.post(url, body, headers, @request_opts) do
+        {:ok, response} -> {:commit, Poison.decode!(response.body)}
+        _ -> {:ignore,nil}
+      end
+    end)
+  end
+
+  defp get_hash_key(url, content) do
+    :md5
+    |> :crypto.hash_init
+    |> :crypto.hash_update(url)
+    |> :crypto.hash_update(content)
+    |> :crypto.hash_final
   end
 
   defp get_token do
+    try_cache("gauth_token", @token_ttl, &generate_token/1)
+  end
+
+  defp generate_token(_key) do
     scope = "https://www.googleapis.com/auth/cloud-platform"
     case Token.for_scope(scope) do
-      {:ok, token} -> token
-      _ -> nil
+      {:ok, token} -> {:commit, token}
+      _ -> {:ignore, nil}
     end
+  end
+
+  defp try_cache(key, ttl, action) do
+    Cachex.execute(GcNLP, fn(state) ->
+      {status, value} = Cachex.get(state, key, [fallback: action])
+
+      if status == :loaded do
+        Cachex.expire!(state, key, ttl)
+      end
+
+      value
+    end)
   end
 
 end
