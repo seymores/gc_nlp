@@ -107,7 +107,7 @@ See <a href="https://cloud.google.com/natural-language/reference/rest/v1beta1/do
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#annotate_text/1">annotate_text(text)</a>
+    <a href="#annotate_text/4">annotate_text(text, syntax \\ true, entities \\ true, sentiment \\ true)</a>
   </div>
   
     <div class="summary-synopsis"><p>Advanced API that analyzes the document and provides a full set of text annotations, including semantic, syntactic, and sentiment information. See <a href="https://cloud.google.com/natural-language/reference/rest/v1beta1/documents/annotateText">doc</a></p>
@@ -181,21 +181,27 @@ See <a href="https://cloud.google.com/natural-language/reference/rest/v1beta1/do
 
   </section>
 </div>
-<div class="detail" id="annotate_text/1">
+<div class="detail" id="annotate_text/4">
+  
+    <span id="annotate_text/1" />
+  
+    <span id="annotate_text/2" />
+  
+    <span id="annotate_text/3" />
   
   <div class="detail-header">
-    <a href="#annotate_text/1" class="detail-link" title="Link to this function">
+    <a href="#annotate_text/4" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">annotate_text(text)</span>
+    <span class="signature">annotate_text(text, syntax \\ true, entities \\ true, sentiment \\ true)</span>
     
     
     
   </div>
   <section class="docstring">
     <p>Advanced API that analyzes the document and provides a full set of text annotations, including semantic, syntactic, and sentiment information. See <a href="https://cloud.google.com/natural-language/reference/rest/v1beta1/documents/annotateText">doc</a></p>
-<h2 id="annotate_text/1-example" class="section-heading">
-  <a href="#annotate_text/1-example" class="hover-link"><i class="icon-link"></i></a>
+<h2 id="annotate_text/4-example" class="section-heading">
+  <a href="#annotate_text/4-example" class="hover-link"><i class="icon-link"></i></a>
   Example
 </h2>
 
@@ -241,7 +247,10 @@ See <a href="https://cloud.google.com/natural-language/reference/rest/v1beta1/do
                 &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 41, &quot;content&quot; =&gt; &quot;Elixir&quot;}},
               %{&quot;dependencyEdge&quot; =&gt; %{&quot;headTokenIndex&quot; =&gt; 9, &quot;label&quot; =&gt; &quot;NUM&quot;},
                 &quot;lemma&quot; =&gt; &quot;1.4&quot;, &quot;partOfSpeech&quot; =&gt; %{&quot;tag&quot; =&gt; &quot;NUM&quot;},
-                &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 48, &quot;content&quot; =&gt; &quot;1.4&quot;}}]}</code></pre>
+                &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 48, &quot;content&quot; =&gt; &quot;1.4&quot;}}]}
+
+iex&gt; GcNLP.annotate_text &quot;Data science is the best name for this industry&quot;, false, false, true
+%{&quot;documentSentiment&quot; =&gt; %{&quot;magnitude&quot; =&gt; 0.8, &quot;polarity&quot; =&gt; 1}, &quot;entities&quot; =&gt; [], &quot;language&quot; =&gt; &quot;en&quot;, &quot;sentences&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 0, &quot;content&quot; =&gt; &quot;Data science is the best name for this industry&quot;}}], &quot;tokens&quot; =&gt; []}</code></pre>
 
   </section>
 </div>

@@ -85,13 +85,16 @@ defmodule GcNLP do
                     %{"dependencyEdge" => %{"headTokenIndex" => 9, "label" => "NUM"},
                       "lemma" => "1.4", "partOfSpeech" => %{"tag" => "NUM"},
                       "text" => %{"beginOffset" => 48, "content" => "1.4"}}]}
+
+      iex> GcNLP.annotate_text "Data science is the best name for this industry", false, false, true
+      %{"documentSentiment" => %{"magnitude" => 0.8, "polarity" => 1}, "entities" => [], "language" => "en", "sentences" => [%{"text" => %{"beginOffset" => 0, "content" => "Data science is the best name for this industry"}}], "tokens" => []}
   """
-  def annotate_text(text) do
+  def annotate_text(text, syntax \\true, entities \\true, sentiment \\true) do
     make_request("documents:annotateText", text, [
       features: %{
-        "extractSyntax": true,
-        "extractEntities": true,
-        "extractDocumentSentiment": true,
+        "extractSyntax": syntax,
+        "extractEntities": entities,
+        "extractDocumentSentiment": sentiment,
       }
     ])
   end
