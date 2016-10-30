@@ -23,11 +23,15 @@ defmodule GcNLP.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :httpoison, :goth]]
+    [
+      applications: [:logger, :cachex, :httpoison, :goth],
+      mod: {GcNLP.Application, []}
+    ]
   end
 
   defp deps do
     [{:httpoison, "~> 0.9.0"},
+     {:cachex, "~> 2.0"},
      {:goth, "~> 0.2.1"},
      {:ex_doc, ">= 0.14.3", only: :dev, override: true},
      {:earmark, "~> 1.0.0", only: :dev, override: true}]

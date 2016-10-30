@@ -21,6 +21,9 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
+config :gc_nlp,
+    cache_ttl: :timer.seconds(10),
+    token_ttl: :timer.minutes(1)
 
 config :goth,
     json: "config/gcloud-secret.json" |> Path.expand |> File.read!
