@@ -8,6 +8,8 @@
     <title>GcNLP – gc_nlp v0.2.1</title>
     <link rel="stylesheet" href="dist/app-091c05798a.css" />
     
+      <link rel="canonical" href="https://hexdocs.pm/gc_nlp/readme" />
+    
     <script src="dist/sidebar_items.js"></script>
   </head>
   <body data-type="extras">
@@ -59,7 +61,7 @@
 
 <h1>GcNLP</h1>
 <p>Elixir wrapper for Google Cloud Natural Language API. See <a href="https://cloud.google.com/natural-language/">Cloud Natural Language API</a></p>
-<p>Latest version 0.2.0 <a href="https://hexdocs.pm/gc_nlp/0.2.0">doc.</a></p>
+<p>Latest version 0.2.0 <a href="https://hexdocs.pm/gc_nlp/0.2.1">doc.</a></p>
 <h2 id="installation" class="section-heading">
   <a href="#installation" class="hover-link"><i class="icon-link"></i></a>
   Installation
@@ -69,7 +71,7 @@
 <ol>
 <li><p>Add <code class="inline">gc_nlp</code> to your list of dependencies in <code class="inline">mix.exs</code>:</p>
 <pre><code class="elixir">def deps do
-  [{:gc_nlp, &quot;~&gt; 0.2.0&quot;}]
+  [{:gc_nlp, &quot;~&gt; 0.2.1&quot;}]
 end</code></pre>
 </li>
 <li><p>Ensure <code class="inline">gc_nlp</code> is started before your application:</p>
@@ -93,11 +95,11 @@ end</code></pre>
 </li>
 <li><p>Entity Analysis</p>
 <pre><code class="elixir">iex&gt; GcNLP.analyze_entities &quot;There is a lot of new features coming in Elixir 1.4&quot;
-%{&quot;entities&quot; =&gt; [%{&quot;mentions&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 41, &quot;content&quot; =&gt; &quot;Elixir 1.4&quot;}}], &quot;metadata&quot; =&gt; %{}, &quot;name&quot; =&gt; &quot;Elixir 1.4&quot;, &quot;salience&quot; =&gt; 0.16144496, &quot;type&quot; =&gt; &quot;OTHER&quot;}], &quot;language&quot; =&gt; &quot;en&quot;} </code></pre>
+%{&quot;entities&quot; =&gt; [%{&quot;mentions&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 41, &quot;content&quot; =&gt; &quot;Elixir 1.4&quot;}}], &quot;metadata&quot; =&gt; %{}, &quot;name&quot; =&gt; &quot;Elixir 1.4&quot;, &quot;salience&quot; =&gt; 0.16144496, &quot;type&quot; =&gt; &quot;OTHER&quot;}], &quot;language&quot; =&gt; &quot;en&quot;}</code></pre>
 </li>
 <li><p>Syntactic Analysis</p>
 <pre><code class="elixir">iex&gt; GcNLP.annotate_text &quot;There is a lot of new features coming in Elixir 1.4&quot;
-%{&quot;documentSentiment&quot; =&gt; %{&quot;magnitude&quot; =&gt; 0.1, &quot;polarity&quot; =&gt; 1}, &quot;entities&quot; =&gt; [%{&quot;mentions&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 41, &quot;content&quot; =&gt; &quot;Elixir 1.4&quot;}}], &quot;metadata&quot; =&gt; %{}, &quot;name&quot; =&gt; &quot;Elixir 1.4&quot;, &quot;salience&quot; =&gt; 0.16144496, &quot;type&quot; =&gt; &quot;OTHER&quot;}], &quot;language&quot; =&gt; &quot;en&quot;, &quot;sentences&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 0, &quot;content&quot; =&gt; &quot;There is a lot of new features coming in Elixir 1.4&quot;}}], &quot;tokens&quot; =&gt; [%{&quot;dependencyEdge&quot; =&gt; %{&quot;headTokenIndex&quot; =&gt; 1, &quot;label&quot; =&gt; &quot;EXPL&quot;}, &quot;lemma&quot; =&gt; &quot;There&quot;, &quot;partOfSpeech&quot; =&gt; %{&quot;tag&quot; =&gt; &quot;DET&quot;}, &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 0, &quot;content&quot; =&gt; &quot;There&quot;}}, %{&quot;dependencyEdge&quot; =&gt; %{&quot;headTokenIndex&quot; =&gt; 1, &quot;label&quot; =&gt; &quot;ROOT&quot;}, &quot;lemma&quot; =&gt; &quot;be&quot;, &quot;partOfSpeech&quot; =&gt; %{&quot;tag&quot; =&gt; &quot;VERB&quot;}, &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 6, &quot;content&quot; =&gt; &quot;is&quot;}}, ...} </code></pre>
+%{&quot;documentSentiment&quot; =&gt; %{&quot;magnitude&quot; =&gt; 0.1, &quot;polarity&quot; =&gt; 1}, &quot;entities&quot; =&gt; [%{&quot;mentions&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 41, &quot;content&quot; =&gt; &quot;Elixir 1.4&quot;}}], &quot;metadata&quot; =&gt; %{}, &quot;name&quot; =&gt; &quot;Elixir 1.4&quot;, &quot;salience&quot; =&gt; 0.16144496, &quot;type&quot; =&gt; &quot;OTHER&quot;}], &quot;language&quot; =&gt; &quot;en&quot;, &quot;sentences&quot; =&gt; [%{&quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 0, &quot;content&quot; =&gt; &quot;There is a lot of new features coming in Elixir 1.4&quot;}}], &quot;tokens&quot; =&gt; [%{&quot;dependencyEdge&quot; =&gt; %{&quot;headTokenIndex&quot; =&gt; 1, &quot;label&quot; =&gt; &quot;EXPL&quot;}, &quot;lemma&quot; =&gt; &quot;There&quot;, &quot;partOfSpeech&quot; =&gt; %{&quot;tag&quot; =&gt; &quot;DET&quot;}, &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 0, &quot;content&quot; =&gt; &quot;There&quot;}}, %{&quot;dependencyEdge&quot; =&gt; %{&quot;headTokenIndex&quot; =&gt; 1, &quot;label&quot; =&gt; &quot;ROOT&quot;}, &quot;lemma&quot; =&gt; &quot;be&quot;, &quot;partOfSpeech&quot; =&gt; %{&quot;tag&quot; =&gt; &quot;VERB&quot;}, &quot;text&quot; =&gt; %{&quot;beginOffset&quot; =&gt; 6, &quot;content&quot; =&gt; &quot;is&quot;}}, ...}</code></pre>
 </li>
 </ol>
 
