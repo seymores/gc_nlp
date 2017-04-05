@@ -19,7 +19,7 @@ defmodule GcNLP.Extra do
       lemma = t["lemma"]
       text = t["text"]
       word = text["content"]
-      %{label: label, tag: tag, word: word, lemma: word}
+      %{label: label, tag: tag, word: word, lemma: lemma}
     end
   end
 

@@ -108,7 +108,7 @@ defmodule GcNLP do
     hash_key = get_hash_key(url, content)
 
     try_cache(hash_key, @cache_ttl, fn(_key) ->
-      token = get_token
+      token = get_token()
 
       headers = %{
         "Authorization" => "Bearer #{token.token}",
