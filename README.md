@@ -12,7 +12,7 @@ The package can be installed as:
 
     ```elixir
     def deps do
-      [{:gc_nlp, "~> 0.2.1"}]
+      [{:gc_nlp, "~> 0.2.2"}]
     end
     ```
 
